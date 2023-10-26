@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 
 
 # Create your models here.
+
+
+    
 class Comic(models.Model):
     '''
     Esta clase hereda de Django models.Model y crea una tabla llamada
@@ -41,3 +44,29 @@ class Comic(models.Model):
         es lo que retorna cuando llamamos al objeto.
         '''
         return f'{self.id}'
+
+class WishList(models.Model):
+    id = models.BigAutoField(
+        db_column='ID', primary_key=True
+    )
+    user = models.ForeignKey(
+        User, verbose_name='user', on_delete=models.CASCADE, default=1, null=False, blank=False, unique=True
+    )
+    title = models.CharField(
+        verbose_name='title', max_length=120, default=''
+    )
+    comic = models.ForeignKey(
+        Comic, verbose_name='Comic', on_delete=models.CASCADE, default=1, blank=True
+    )
+    favorite = models.TextField(
+        verbose_name='favorite', default=''
+    )
+    cart = models.PositiveIntegerField(
+        verbose_name='stock qty', default=0
+    )
+    wished_qty = models.PositiveIntegerField(
+        verbose_name='wished qty', default=0
+    )
+    bought_qty = models.PositiveIntegerField(
+        verbose_name='bought qty', default=0
+    )
